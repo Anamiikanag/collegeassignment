@@ -1,0 +1,7 @@
+2025-04-17 23:31:48.609417 - Lottery started
+2025-04-17 23:31:55.409663 - User registered: a
+2025-04-17 23:31:59.412465 - User registered: b
+2025-04-17 23:32:02.681128 - User registered: c
+2025-04-17 23:32:35.173661 - User registered: d
+2025-04-17 23:32:39.934958 - User registered: e
+2025-04-17 23:32:45.298385 - User registered: f
