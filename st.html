@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Registration Form</title>
+  <style>
+    body {
+      font-family: Arial;
+      padding: 20px;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    input, select {
+      padding: 8px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .error {
+      color: red;
+      font-size: 13px;
+    }
+    button[disabled] {
+      background-color: #ccc;
+    }
+    button {
+      padding: 10px 15px;
+      background-color: green;
+      color: white;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Student Registration Form</h2>
+
+  <form id="registrationForm" onsubmit="submitForm(event)">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" id="name" oninput="validateName()" />
+      <div class="error" id="nameError"></div>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" id="email" oninput="validateEmail()" />
+      <div class="error" id="emailError"></div>
+    </div>
+
+    <div class="form-group">
+      <label for="contact">Contact Number:</label>
+      <input type="text" id="contact" oninput="validateContact()" />
+      <div class="error" id="contactError"></div>
+    </div>
+
+    <div class="form-group">
+      <label>Gender:</label><br />
+      <input type="radio" name="gender" value="Male" onclick="validateGender()" /> Male
+      <input type="radio" name="gender" value="Female" onclick="validateGender()" /> Female
+      <div class="error" id="genderError"></div>
+    </div>
+
+    <div class="form-group">
+      <label for="course">Course:</label>
+      <select id="course" onchange="validateCourse()">
+        <option value="">-- Select Course --</option>
+        <option value="B.Tech">B.Tech</option>
+        <option value="BCA">BCA</option>
+        <option value="B.Sc">B.Sc</option>
+      </select>
+      <div class="error" id="courseError"></div>
+    </div>
+
+    <button type="submit" id="submitBtn" disabled>Submit</button>
+  </form>
+
+  <script>
+    let isNameValid = false;
+    let isEmailValid = false;
+    let isContactValid = false;
+    let isGenderValid = false;
+    let isCourseValid = false;
+
+    function validateName() {
+      const name = document.getElementById('name').value.trim();
+      if (name.length < 3) {
+        document.getElementById('nameError').textContent = "Name must be at least 3 characters.";
+        isNameValid = false;
+      } else {
+        document.getElementById('nameError').textContent = "";
+        isNameValid = true;
+      }
+      updateSubmitButton();
+    }
+
+    function validateEmail() {
+      const email = document.getElementById('email').value.trim();
+      const pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+      if (!pattern.test(email)) {
+        document.getElementById('emailError').textContent = "Invalid email format.";
+        isEmailValid = false;
+      } else {
+        document.getElementById('emailError').textContent = "";
+        isEmailValid = true;
+      }
+      updateSubmitButton();
+    }
+
+    function validateContact() {
+      const contact = document.getElementById('contact').value.trim();
+      const pattern = /^[0-9]{10}$/;
+      if (!pattern.test(contact)) {
+        document.getElementById('contactError').textContent = "Contact must be 10 digits.";
+        isContactValid = false;
+      } else {
+        document.getElementById('contactError').textContent = "";
+        isContactValid = true;
+      }
+      updateSubmitButton();
+    }
+
+    function validateGender() {
+      const gender = document.querySelector('input[name="gender"]:checked');
+      if (!gender) {
+        document.getElementById('genderError').textContent = "Please select a gender.";
+        isGenderValid = false;
+      } else {
+        document.getElementById('genderError').textContent = "";
+        isGenderValid = true;
+      }
+      updateSubmitButton();
+    }
+
+    function validateCourse() {
+      const course = document.getElementById('course').value;
+      if (!course) {
+        document.getElementById('courseError').textContent = "Please select a course.";
+        isCourseValid = false;
+      } else {
+        document.getElementById('courseError').textContent = "";
+        isCourseValid = true;
+      }
+      updateSubmitButton();
+    }
+
+    function updateSubmitButton() {
+      const btn = document.getElementById('submitBtn');
+      if (isNameValid && isEmailValid && isContactValid && isGenderValid && isCourseValid) {
+        btn.disabled = false;
+      } else {
+        btn.disabled = true;
+      }
+    }
+
+    function submitForm(event) {
+      event.preventDefault();
+      alert("Form submitted successfully!");
+    }
+  </script>
+
+</body>
+</html>
